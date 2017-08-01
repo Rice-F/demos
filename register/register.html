@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+    <script src="ajax.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #register {
+            margin:  30px 0 0 30px;
+        }
+        dl {
+            margin-top: 20px;
+        }
+        dl dt {
+            float: left;
+            width: 86px;
+            padding-bottom: 5px;
+        }
+        dl dd>input {
+            padding: 3px 0 3px 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        dl dd.msg {
+            height: 12px;
+            padding: 10px 0;
+            margin-left: 86px;
+            font-size: 12px;
+            color: #aaa;
+        }
+        dl dd.btn-register {
+            margin-left: 86px;
+            margin-top: 20px;
+        }
+        .btn {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 3px 10px;
+            background-color: #fff;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="register">
+        <h3>注册</h3>
+        <form class="register" action="">
+            <dl>
+                <dt>用户名</dt>
+                <dd>
+                    <input class="username" type="text" placeholder="用户名(hunger被注册过)">
+                </dd>
+                <dd class="msg msg-user">只能是字母、数字、下划线，3-10个字符</dd>
+                <dt>密码</dt>
+                <dd>
+                    <input class="password" type="text">
+                </dd>
+                <dd class="msg msg-pass">大写字母、小写、数字、下划线最少两种，6-15个字符</dd>
+                <dt>再输一次</dt>
+                <dd>
+                    <input class="passwordAgain" type="text" placeholder="再输一次密码">
+                </dd>
+                <dd class="msg msg-passAgain"></dd>
+                <dd class="btn-register">
+                    <button class="btn">注册</button>
+                </dd>
+            </dl>
+        </form>
+    </div>
+
+    <script>
+        var username = document.querySelector(".username"),
+               msgUser = document.querySelector(".msg-user"),
+               password = document.querySelector(".password"),
+                msgPass = document.querySelector(".msg-pass"),
+               passwordAgain = document.querySelector(".passwordAgain"),
+                msgPassAgain = document.querySelector(".msg-passAgain"),
+               btn = docuemnt.querySelector(".btn");
+
+        username.addEventListener('click',function(){
+
+        })
+
+        password.addEventListener('click',function(){
+
+        })
+
+        passwordAgain.addEventListener('click',function(){
+
+        })
+
+        btn.addEventListener('click',function(){
+
+        })
+
+        function isLegalPassword(){
+
+        }
+    </script>
+
+</body>
+</html>
