@@ -1,6 +1,6 @@
 <?php
 /*
-参数:username   用户名
+参数:username   用户名 password 密码
 返回格式:json
 {"ret":200,"msg":"该用户名可以注册"}
 返回字段
@@ -16,7 +16,7 @@ if(empty($username)){
 }
 session_start();
 $sessionUser = $_SESSION;
-if(isset($sessionUser[$username])){
+if(isset($sessionUser[$username]) || $username == 'hunger'){
     echo json_encode(array('ret'=>101,'msg'=>'该用户名已经被注册'));
     return;
 }

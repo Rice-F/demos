@@ -17,7 +17,7 @@
 
         if(opts.type.toLowerCase() == "get"){
             xhr.open(opts.type,opts.url + "?" + dataStr,true);
-            xhr.send();
+            xhr.send(null);
         }
         if(opts.type.toLowerCase() == "post"){
             xhr.open(opts.type,opts.url,true)

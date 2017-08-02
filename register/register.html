@@ -87,19 +87,23 @@
             if( !isLegalUserName(username.value) ){
                 username.style.border = "1px solid #E27272";
                 msgUser.innerHTML = "用户名格式不正确";
+                msgUser.style.color = "#E27272";
             }else{
                 ajax({
-                    url: "/findUserName.php",
-                    type: "post",
-                    data: {user:username.value},
+                    url: "./findUserName.php",
+                    type: "get",
+                    data: {username:username.value},
                     success: function(res){
                         if( res.ret ==101 ){
                             username.style.border = "1px solid #E27272";
                             msgUser.innerHTML = res.msg;
                         }else if( res.ret == 200 ){
+                            username.style.border = "1px solid #ccc";
                             msgUser.innerHTML = res.msg;
+                            msgUser.style.color = "#ccc";
                         }
-                    }
+                    },
+                    error:function(){}
                 })
             }
         })
@@ -108,18 +112,10 @@
             if( !isLegalPassword(password.value) ){
                 password.style.border = "1px solid #E27272";
                 msgPass.innerHTML = "密码格式不正确";
+                msgPass.style.color = "#E27272";
             }else{
-                ajax({
-                    url: "/register.php",
-                    type: "post",
-                    data: {pass:password.value},
-                    success: function(res){
-                        if( res.ret ==200 ){
-                            password.style.border = "1px solid #ccc";
-                            msgUser.innerHTML = " ";
-                        }
-                    }
-                })
+                password.style.border = "1px solid #ccc";
+                msgPass.innerHTML = " ";
             }
         })
 
@@ -127,17 +123,52 @@
             if( passwordAgain.value !==  password.value){
                 passwordAgain.style.border = "1px solid #E27272";
                 msgPassAgain.innerHTML = "两次密码输入不一致";
+                msgPassAgain.style.color = "#E27272";
+            }else{
+                passwordAgain.style.border = "1px solid #ccc";
+                msgPassAgain.innerHTML = " ";
             }
         })
 
         btn.addEventListener('click',function(evt){
             evt.preventDefault();
-            if( isLegalUserName() &&  isLegalPassword() ) {
+            if( isLegalUserName(username.value) &&  isLegalPassword(password.value) ) {
                 ajax({
-                    url: "/register.php",
-                    type: "post",
-
+                    url: "./findUserName.php",
+                    type: "get",
+                    data: {username:username.value},
+                    success: function(res){
+                        if( res.ret ==101 ){
+                            username.style.border = "1px solid #E27272";
+                            msgUser.innerHTML = res.msg;
+                            alert("注册失败");
+                        }else if( res.ret == 200 ){
+                            username.style.border = "1px solid #ccc";
+                            msgUser.innerHTML = res.msg;
+                            msgUser.style.color = "#ccc";
+                            ajax({
+                                url: "./register.php",
+                                type: "post",
+                                data: {
+                                    username: username.value,
+                                    password: password.value
+                                },
+                                success: function(res){
+                                    if( res.ret == 200 ){
+                                        alert(res.msg);
+                                    }
+                                },
+                                error: function(){
+                                }
+                            })
+                        }
+                    },
+                    error:function(){
+                        alert("注册失败");
+                    }
                 })
+            }else{
+                alert("注册失败");
             }
         })
 
