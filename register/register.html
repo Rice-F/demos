@@ -59,12 +59,12 @@
                 <dd class="msg msg-user">只能是字母、数字、下划线，3-10个字符</dd>
                 <dt>密码</dt>
                 <dd>
-                    <input class="password" type="text">
+                    <input class="password" type="password">
                 </dd>
                 <dd class="msg msg-pass">大写字母、小写、数字、下划线最少两种，6-15个字符</dd>
                 <dt>再输一次</dt>
                 <dd>
-                    <input class="passwordAgain" type="text" placeholder="再输一次密码">
+                    <input class="passwordAgain" type="password" placeholder="再输一次密码">
                 </dd>
                 <dd class="msg msg-passAgain"></dd>
                 <dd class="btn-register">
@@ -81,26 +81,85 @@
                 msgPass = document.querySelector(".msg-pass"),
                passwordAgain = document.querySelector(".passwordAgain"),
                 msgPassAgain = document.querySelector(".msg-passAgain"),
-               btn = docuemnt.querySelector(".btn");
+               btn = document.querySelector(".btn");
 
-        username.addEventListener('click',function(){
-
+        username.addEventListener('blur',function(){
+            if( !isLegalUserName(username.value) ){
+                username.style.border = "1px solid #E27272";
+                msgUser.innerHTML = "用户名格式不正确";
+            }else{
+                ajax({
+                    url: "/findUserName.php",
+                    type: "post",
+                    data: {user:username.value},
+                    success: function(res){
+                        if( res.ret ==101 ){
+                            username.style.border = "1px solid #E27272";
+                            msgUser.innerHTML = res.msg;
+                        }else if( res.ret == 200 ){
+                            msgUser.innerHTML = res.msg;
+                        }
+                    }
+                })
+            }
         })
 
-        password.addEventListener('click',function(){
-
+        password.addEventListener('blur',function(){
+            if( !isLegalPassword(password.value) ){
+                password.style.border = "1px solid #E27272";
+                msgPass.innerHTML = "密码格式不正确";
+            }else{
+                ajax({
+                    url: "/register.php",
+                    type: "post",
+                    data: {pass:password.value},
+                    success: function(res){
+                        if( res.ret ==200 ){
+                            password.style.border = "1px solid #ccc";
+                            msgUser.innerHTML = " ";
+                        }
+                    }
+                })
+            }
         })
 
-        passwordAgain.addEventListener('click',function(){
-
+        passwordAgain.addEventListener('blur',function(){
+            if( passwordAgain.value !==  password.value){
+                passwordAgain.style.border = "1px solid #E27272";
+                msgPassAgain.innerHTML = "两次密码输入不一致";
+            }
         })
 
-        btn.addEventListener('click',function(){
+        btn.addEventListener('click',function(evt){
+            evt.preventDefault();
+            if( isLegalUserName() &&  isLegalPassword() ) {
+                ajax({
+                    url: "/register.php",
+                    type: "post",
 
+                })
+            }
         })
 
-        function isLegalPassword(){
+        //合法的用户名, 3~10个字符，只能是字母，数字，下划线
+        function isLegalUserName (username){
+            return /^[A-Za-z_0-9]{3,10}$/.test(username);
+        }
 
+        //合法的密码, 6-15个字符，至少包括大写，小写，下划线，数字两种
+        function isLegalPassword(password){
+            if( password.length < 6 || password.length > 15){
+                return false;
+            }
+            //如果包含上述四种以外的字符，false
+            if( /[^A-Za-z_0-9]/.test(password) ){
+                return false;
+            }
+            //如果全为大写、小写、下划线、数字, false
+            if( /(^[a-z]+$)|(^[A-Z]+$)|(^_+$)|(^\d+$)/g.test(password) ){
+                return false;
+            }
+            return true;
         }
     </script>
 
