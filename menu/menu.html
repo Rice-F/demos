@@ -1,0 +1,150 @@
+<!DOCTYPE>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <title>menu</title>
+        <script src="jquery-3.0.0.min.js"></script>
+        <link rel="stylesheet" href="iconfont/iconfont.css">
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            .clear:after {
+                content: "";
+                display: block;
+                clear: both;
+            }
+            .menu{
+                border: 1px solid #F08080;
+                border-radius: 3px;
+                width: 200px;
+                margin: 20px 0 0 20px;
+                padding:0 10px;
+                background: #F08080;
+            }
+            .menu>li {
+                position: relative;
+                list-style: none;
+                border-bottom:1px solid 	#E27272;
+            }
+            .menu>li>a {
+                display: inline-block;
+                width: 200px;
+                margin: 10px 0;
+                padding-left: 10px;
+                color: #fff;
+                text-decoration: none;
+            }
+            .iconfont {
+                position: absolute;
+                right: 0;
+                top: 12.5px;
+                color: #fff;
+                cursor: pointer;
+            }
+            .childMenu {
+                display: none;
+                position: absolute;
+                left: 210px;
+                top: 0;
+                width: 200px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+            .childMenu>li {
+                float: left;
+                list-style: none;
+            }
+            .childMenu>li>a {
+                display: inline-block;
+                width: 100px;
+                margin:  5px 0;
+                text-align: center;
+                color: #333;
+                font-size: 14px;
+                text-decoration: none;
+            }
+
+        </style>
+    </head>
+    <body>
+        <ul class="menu">
+            <li>
+                <a href="">运动/户外</a>
+                <i class="iconfont icon-go"></i>
+                <ul class="childMenu clear">
+                    <li><a href="">冲锋衣</a></li>
+                    <li><a href="">登山鞋</a></li>
+                    <li><a href="">望远镜</a></li>
+                    <li><a href="">滑板</a></li>
+                    <li><a href="">山地车</a></li>
+                    <li><a href="">游泳</a></li>
+                    <li><a href="">跑步机</a></li>
+                    <li><a href="">瑜伽</a></li>
+                    <li><a href="">速干衣</a></li>
+                    <li><a href="">徒步</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="">游戏/动漫</a>
+                <i class="iconfont icon-go"></i>
+                <ul class="childMenu clear">
+                    <li><a href="">魔兽</a></li>
+                    <li><a href="">高达模型</a></li>
+                    <li><a href="">漫展门票</a></li>
+                    <li><a href="">复仇者联盟</a></li>
+                    <li><a href="">手办</a></li>
+                    <li><a href="">王者荣耀</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="">家具/装饰</a>
+                <i class="iconfont icon-go"></i>
+                <ul class="childMenu clear">
+                    <li><a href="">沙发</a></li>
+                    <li><a href="">布艺窗帘</a></li>
+                    <li><a href="">装饰画</a></li>
+                    <li><a href="">地板</a></li>
+                    <li><a href="">定制衣柜</a></li>
+                    <li><a href="">餐桌</a></li>
+                    <li><a href="">化妆台</a></li>
+                    <li><a href="">书架</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="">汽车/二手车</a>
+                <i class="iconfont icon-go"></i>
+                <ul class="childMenu clear">
+                    <li><a href="">公车</a></li>
+                    <li><a href="">拍卖</a></li>
+                    <li><a href="">SUV</a></li>
+                    <li><a href="">胎压监测</a></li>
+                    <li><a href="">GPS导航</a></li>
+                    <li><a href="">安全锤</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="">美妆/洗护</a>
+                <i class="iconfont icon-go"></i>
+                <ul class="childMenu clear">
+                    <li><a href="">面膜</a></li>
+                    <li><a href="">洗发水</a></li>
+                    <li><a href="">彩妆</a></li>
+                    <li><a href="">防晒</a></li>
+                    <li><a href="">粉底</a></li>
+                    <li><a href="">眼霜</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <script>
+            $(".menu>li").on("mouseover",function(){
+                $(this).find("ul").show();
+            })
+            $(".menu>li").on("mouseleave",function(){
+                $(this).find("ul").hide();
+            })
+        </script>
+    </body>
+</html>
