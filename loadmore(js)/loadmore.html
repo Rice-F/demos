@@ -2,7 +2,7 @@
 <html lang="zh-CN">
     <head>
         <meta charset = "UTF-8">
-        <title>lodemore</title>
+        <title>lodemore(js)</title>
         <script src="ajax.js"></script>
         <style>
             * {
@@ -42,10 +42,10 @@
     </head>
     <body>
         <ul class="contents">
-            <li>内容1</li>
-            <li>内容2</li>
+            <li>content1</li>
+            <li>content2</li>
         </ul>
-        <button class="more" href="#">加载更多</button>
+        <button class="more">More</button>
 
         <script>
             var more = document.getElementsByClassName("more")[0],
@@ -61,9 +61,10 @@
                     },
                     success: function(ret){
                         contents.innerHTML += ret.msg;
+                        console.log(ret);
                     },
                     error: function(){
-                        console.log('出错了');
+                        console.log('error');
                     }
                 })
             })

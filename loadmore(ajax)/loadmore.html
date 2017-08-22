@@ -1,0 +1,81 @@
+<DOCTYPE>
+<html lang="zg-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>loadmore(ajax)</title>
+    <script src="jquery-3.0.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style: none;
+        }
+        ul.contents {
+            width: 600px;
+            margin: 10px auto;
+        }
+        ul.contents li {
+            list-style: none;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button.more {
+            display: block;
+            width: 80px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            text-decoration: none;
+            margin: 0 auto;
+            border: 1px solid #E27272;
+            border-radius: 3px;
+            background: #fff;
+            color: #E27272;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <ul class="contents">
+        <li>content1</li>
+        <li>content2</li>
+    </ul>
+    <button class="more">More</button>
+
+    <script>
+        $('.contents').on('mouseover','li',function(){
+            $(this).css({
+                'background': 'lightsteelblue'
+            })
+        })
+        $('.contents').on('mouseleave','li',function(){
+            $(this).css({
+                'background': '#fff'
+            })
+        })
+        $('.more').on('click',function(){
+            var start = $('.contents').children().length + 1;
+            $.ajax({
+                url: './loadmore.php',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    start: start,
+                    num: 3
+                },
+                success: function(ret){
+                    $('.contents').append(ret.msg);
+                },
+                error: function(){
+                    console.log("error");
+                }
+            })
+        })
+    </script>
+</body>
+</html>
