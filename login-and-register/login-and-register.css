@@ -1,0 +1,224 @@
+@charset "UTF-8";
+
+/* reset */
+* {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+
+/* public */
+.clear:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.wrap {
+    width: 1200px;
+    margin: 0 auto;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+
+/* header */
+#header {
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 0 10px #ccc;
+}
+#header .nav {
+    font-size: 12px;
+    padding: 10px 0;
+    background: #f2f2f2;
+}
+#header .nav a {
+    color: #666;
+}
+#header .nav .left>li {
+    float: left;
+    margin-right: 30px;
+}
+#header .nav .left>li a.hel {
+    color: #ff6a21;
+}
+#header .nav .left>li a.weChat img{
+    display: inline-block;
+    width: 20px;
+    margin-right: 3px;
+    vertical-align: middle;
+}
+#header .nav .right>li {
+    float: left;
+    margin-left: 30px;
+}
+#header .title {
+    padding: 15px 0;
+}
+#header .title .left a {
+    color: #ff6a21;
+    font-size: 32px;
+    font-weight: 600;
+}
+#header .title .left a .logo-slogan {
+    display: inline-block;
+    margin-right: 5px;
+    width: 36px;
+    height: 36px;
+    background: #ff6a21;
+    border-radius: 3px;
+    color: #fff;
+    text-align: center;
+    line-height: 28px;
+}
+#header .title .right {
+    position: relative;
+}
+#header .title .right .txt {
+    padding: 10px;
+    width: 290px;
+    font-size: 12px;
+    background: #fff;
+    border: 1px solid #dbdbdb;
+}
+#header .title .right .gray-search {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0,-50%);
+    width: 16px;
+    height: 16px;
+    background: url("imgs/gray-search.png") no-repeat;
+    border: none;
+    cursor: pointer;
+}
+
+/* content */
+#content .logo {
+    margin-top: 100px;
+    text-align: center;
+}
+#content .logo-slogan {
+    display: block;
+    width: 78px;
+    height: 78px;
+    margin: 0 auto;
+    background: #ff6a21;
+    border-radius: 3px;
+    color: #fff;
+    line-height: 60px;
+    font-size: 72px;
+    font-weight: 600;
+}
+#content .logo>span {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    color: #999;
+    font-size: 14px;
+}
+#content .login-form {
+    width: 640px;
+    margin: 0 auto;
+    font-size: 14px;
+}
+#content .login-form div.mobileNumber span.mobile,                 /* 手机号 密码*/
+#content .login-form div.passWord span.password,
+#content .login-form div.verification span.verificate,
+#content .login-form div.verification span.password {
+    width: 100px;
+    margin-right: 10px;
+    height: 38px;
+    line-height: 38px;
+    text-align: right;
+}
+#content .login-form div.mobileNumber input,           /* 手机号 密码 验证码 输入框 */
+#content .login-form div.passWord input[type="password"] ,
+#content .login-form div.verification input[type="text"],
+#content .login-form div.verification input[type="password"] {
+    width: 410px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    height: 38px;
+    line-height: 38px;
+    color: #666;
+    border: 1px solid #ccc;
+}
+#content .login-form span.prompt {        /* 请输入手机号等 */
+    display: inline-block;
+    margin-left: 10px;
+    height: 38px;
+    line-height: 38px;
+    color: #ff4c4c;
+    font-size: 12px;
+}
+#content .login-form div.login-register input ,           /* 登录/注册   登录*/
+#content .login-form div.passWord input[type="submit"],
+#content .login-form div.verification input[type="submit"] {
+    margin-left: 110px;
+    margin-bottom: 20px;
+    width: 410px;
+    height: 45px;
+    line-height: 45px;
+    background: #ff6a21;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+}
+#content .login-form div.passWord .info,                /* 自动登录 忘记密码 我已阅读*/
+#content .verification .info {
+    width: 410px;
+    height: 24px;
+    line-height: 24px;
+    margin-left: 110px;
+    font-size: 12px;
+    cursor: pointer;
+}
+#content .login-form div.passWord .info label,           /* 自动登录  我已阅读*/
+#content .verification .info label {
+    height: 24px;
+    width: 24px;
+    margin-right: 10px;
+    line-height: 24px;
+}
+#content .login-form div.passWord .info label.check,           /* 自动登录 我已阅读选中 */
+#content .verification .info label.check {
+    background: url("imgs/check.png");
+}
+#content .login-form div.passWord .info label.check-no,      /* 自动登录 我已阅读未选中 */
+#content .verification .info label.check-no {
+    background: url("imgs/check-no.png");
+}
+#content .login-form div.passWord .info input[type="checkbox"],
+#content .verification .info input[type="checkbox"] {
+    display: none;
+}
+#content .login-form div.passWord .info a.forget {              /* 忘记密码 */
+    color: #666;
+}
+#content .login-form div.passWord .info a.forget:hover {
+    color: #ff6a21;
+}
+#content .login-form div.verification input[type="text"] {                 /*  请输入验证码 */
+    width: 305px;
+}
+#content .login-form div.verification div>a {                      /*  发送验证码 */
+    width: 95px;
+    height: 36px;
+    line-height: 36px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    color: #ff6a21;
+    text-align: center;
+}
+#content .verification .info>span>a {                  /* 无有赛事平台用户协议 */
+    color: #60caf1;
+}
