@@ -60,26 +60,35 @@ a {
     margin-left: 30px;
 }
 #header .title {
+    position: relative;
     padding: 15px 0;
 }
 #header .title .left a {
+    position: relative;
+    padding-left: 46px;
     color: #ff6a21;
     font-size: 32px;
     font-weight: 600;
 }
-#header .title .left a .logo-slogan {
-    display: inline-block;
-    margin-right: 5px;
-    width: 36px;
-    height: 36px;
-    background: #ff6a21;
-    border-radius: 3px;
-    color: #fff;
-    text-align: center;
-    line-height: 28px;
+#header .title .left a .logo-slogan {                /* 小熊本 */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    /*display: inline-block;*/
+    /*margin-right: 5px;*/
+    /*width: 36px;*/
+    /*height: 36px;*/
+    /*background: #ff6a21;*/
+    /*border-radius: 3px;*/
+    /*color: #fff;*/
+    /*text-align: center;*/
+    /*line-height: 28px;*/
 }
 #header .title .right {
-    position: relative;
+    position: absolute;
+    right: 0;
+    bottom: 18px;
+
 }
 #header .title .right .txt {
     padding: 10px;
@@ -105,17 +114,17 @@ a {
     margin-top: 100px;
     text-align: center;
 }
-#content .logo-slogan {
+#content .logo-slogan {                      /* 大熊本 */
     display: block;
-    width: 78px;
-    height: 78px;
+    /*width: 78px;*/
+    /*height: 78px;*/
     margin: 0 auto;
-    background: #ff6a21;
-    border-radius: 3px;
-    color: #fff;
-    line-height: 60px;
-    font-size: 72px;
-    font-weight: 600;
+    /*background: #ff6a21;*/
+    /*border-radius: 3px;*/
+    /*color: #fff;*/
+    /*line-height: 60px;*/
+    /*font-size: 72px;*/
+    /*font-weight: 600;*/
 }
 #content .logo>span {
     display: inline-block;
@@ -221,4 +230,137 @@ a {
 }
 #content .verification .info>span>a {                  /* 无有赛事平台用户协议 */
     color: #60caf1;
+}
+#content .login-other {
+    width: 410px;
+    margin: 80px auto 0;
+    text-align: center;
+}
+#content .login-other>span {                 /* —— */
+    color: #ccc;
+}
+#content .login-other>span.third {           /* 使用第三方平台登录 */
+    display: inline-block;
+    padding: 0 16px;
+    height: 38px;
+    line-height: 38px;
+    color: #666;
+    font-size: 14px;
+}
+#content .login-other>ul {
+    margin-top: 20px;
+    padding: 0 59px;
+}
+#content .login-other>ul li {
+    width: 146px;
+}
+#content .login-other>ul li a img {
+    width: 51px;
+    height: 51px;
+}
+#content .login-other>ul li span {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* footer */
+#footer {
+    margin-top: 300px;
+    background: #333;
+}
+#footer .wrap {
+    padding: 35px 0;
+}
+#footer .footer-left {
+    width: 950px;
+    padding-right: 40px;
+    border-right: 1px solid #4c4c4c;
+}
+#footer .left .intro dl {
+    margin-right: 130px;
+}
+#footer .left .intro dl dt {
+    margin-bottom: 10px;
+    padding: 5px 0;
+    color: #fff;
+    font-size: 14px;
+}
+#footer .left .intro dl.mr0 {
+    margin-right: 0;
+}
+#footer .left .intro dd span,
+#footer .left .intro dd a {
+    display: block;
+    padding: 8px 0;
+    font-size: 12px;
+    color: #a8a8a8;
+}
+#footer .left .intro dd a:hover {
+    color: #fff;
+}
+#footer .left .intro dd span>i {
+    color: #ef8702;
+    font-style: normal;
+}
+#footer .left .friend dl dt {
+    color: #fff;
+    margin-bottom: 15px;
+    padding: 3px 0;
+}
+#footer .left .friend dd a {
+    margin-right: 13px;
+    color: #999;
+    font-size: 12px;
+}
+#footer .left .friend dd a:hover {
+    color: #fff;
+}
+#footer .left p.record {
+    margin-top: 18px;
+    font-size: 12px;
+    color: #999;
+}
+#footer .footer-right {
+    margin-left: 40px;
+}
+#footer .footer-right .icon {
+    width: 20px;
+    height: 20px;
+}
+#footer .footer-right span,
+#footer .footer-right a {
+    font-size: 12px;
+    color: #999;
+}
+#footer .footer-right .footer-logo {
+    padding: 10px;
+    margin-bottom: 15px;
+    background: #fff;
+    text-align: center;
+}
+#footer .footer-right .footer-logo p {
+    position: relative;
+}
+#footer .footer-right .footer-logo p img {             /* 熊本赛事官方微信icon */
+    position: absolute;
+}
+#footer .footer-right .footer-logo p span {              /* 熊本赛事官方微信 */
+    margin-left: 25px;
+    color: #333;
+}
+#footer .footer-right div.weibo,
+#footer .footer-right div.phone,
+#footer .footer-right div.qq {
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+#footer .footer-right div.weibo a,
+#footer .footer-right div.phone span,
+#footer .footer-right div.qq span {
+    margin-left: 15px;
+}
+#footer .footer-right div.weibo a:hover {
+    color: #fff;
 }
