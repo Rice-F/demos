@@ -138,6 +138,10 @@ a {
     margin: 0 auto;
     font-size: 14px;
 }
+#content .login-form div.passWord,
+#content .login-form div.verification {
+    display: none;
+}
 #content .login-form div.mobileNumber span.mobile,                 /* 手机号 密码*/
 #content .login-form div.passWord span.password,
 #content .login-form div.verification span.verificate,

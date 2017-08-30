@@ -63,23 +63,23 @@
                 <div class="mobileNumber clear">                       <!--手机号-->
                     <span class="left mobile">手机号</span>
                     <input class="left" type="text" placeholder="请输入手机号">
-                    <span class="left prompt">请输入手机号</span>
+                    <span class="left prompt"></span>
                 </div>
-                <!--<div class="login-register clear">                    &lt;!&ndash;登录/注册&ndash;&gt;-->
-                    <!--<input class="left" type="submit" value="登录/注册">-->
-                <!--</div>-->
-                <!--<div class="passWord clear">                                    &lt;!&ndash;密码+登录&ndash;&gt;-->
-                    <!--<span class="left password">密码</span>-->
-                    <!--<input class="left" type="password" placeholder="请输入密码">-->
-                    <!--<span class="left prompt">密码须大于6位</span>-->
-                    <!--<input type="submit" value="登录">-->
-                    <!--<div class="info clear">-->
-                        <!--<label class="left check"></label>-->
-                        <!--<input class="left" type="checkbox" checked="checked">-->
-                        <!--<span class="left">自动登录</span>-->
-                        <!--<a class="right forget" href="javascript:void(0)">忘记密码</a>-->
-                    <!--</div>-->
-                <!--</div>-->
+                <div class="login-register clear">                    <!--登录/注册-->
+                    <input class="left" type="submit" value="登录/注册">
+                </div>
+                <div class="passWord clear">                                    <!--密码+登录-->
+                    <span class="left password">密码</span>
+                    <input class="left" type="password" placeholder="请输入密码">
+                    <span class="left prompt">密码须大于6位</span>
+                    <input type="submit" value="登录">
+                    <div class="info clear">
+                        <label class="left check"></label>
+                        <input class="left" type="checkbox" checked="checked">
+                        <span class="left">自动登录</span>
+                        <a class="right forget" href="javascript:void(0)">忘记密码</a>
+                    </div>
+                </div>
                 <div class="verification clear">                                            <!--验证码+密码+注册-->
                     <div class="clear">
                         <span class="left verificate">手机验证码</span>
@@ -206,5 +206,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $('.mobileNumber>input').on('blur',function(){
+            var phoneNumber = $('.mobileNumber>input').val();
+            if( phoneNumber.length === 0 ){
+                $('.mobileNumber>.prompt').text("请输入手机号");
+            }
+            if( phoneNumber.length >11 ){
+                $('.mobileNumber>.prompt').text("手机号格式错误");
+            }
+        })
+    </script>
 </body>
 </html>
