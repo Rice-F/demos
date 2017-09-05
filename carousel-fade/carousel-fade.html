@@ -1,0 +1,113 @@
+<!DOCTYPE>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>carousel-fade</title>
+    <script src="jquery-3.0.0.min.js"></script>
+    <style>
+        /* reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        li {
+            list-style: none;
+        }
+        a {
+            text-decoration: none;
+        }
+
+        /* public */
+        .clear:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .carousel {
+            position: relative;
+            width: 480px;
+            height: 360px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        .pre,
+        .next {
+            position: absolute;
+            top: 50%;
+            margin-top: -25px;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            color: #fff;
+            font-size: 30px;
+            opacity: .8;
+        }
+        .pre:hover,
+        .next:hover {
+            font-size: 60px;
+        }
+        .pre {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+        .bullet {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+        .bullet li {
+            display: inline-block;
+            width: 16px;
+            height: 4px;
+            background: #fff;
+            cursor: pointer;
+        }
+        .bullet li.avtive {
+            background: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <ul class="items">
+            <li>
+                <a href="javascript:void(0)">
+                    <img src="imgs/26.jpg" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">
+                    <img src="imgs/25.jpg" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">
+                    <img src="imgs/24.jpg" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">
+                    <img src="imgs/23.jpg" alt="">
+                </a>
+            </li>
+
+
+        </ul>
+        <a href="javascript:void(0)" class="pre"><</a>
+        <a href="javascript:void(0)" class="next">></a>
+        <ul class="bullet">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+</body>
+</html>
