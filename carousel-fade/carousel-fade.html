@@ -68,7 +68,7 @@
             background: #fff;
             cursor: pointer;
         }
-        .bullet li.avtive {
+        .bullet li.active {
             background: #666;
         }
     </style>
@@ -102,12 +102,65 @@
         <a href="javascript:void(0)" class="pre"><</a>
         <a href="javascript:void(0)" class="next">></a>
         <ul class="bullet">
-            <li></li>
+            <li class="active"></li>
             <li></li>
             <li></li>
             <li></li>
         </ul>
     </div>
+
+    <script>
+        var $pre = $(".pre"),
+               $next = $(".next"),
+               $bullet = $(".bullet")
+               $items = $(".items").children(),
+               imgCount = $items.length;
+
+        var curIdx = 0,
+               isFade = false;
+
+        play(0);
+        autoPlay();
+
+        $pre.on('click',function(){
+            playPre ();
+        })
+
+        $next.on('click',function(){
+            playNext();
+        })
+
+        $bullet.find('li').on('click',function(){
+            var thisIdx = $(this).index();
+            play(thisIdx);
+        })
+        function play (idx) {
+            if(isFade) return;
+            isFade = true;
+            $items.eq(curIdx).fadeOut(500);
+            $items.eq(idx).fadeIn(500,function(){
+                isFade = false;
+            })
+            curIdx = idx;
+            setBullet();
+        }
+        function playNext (){
+            play( (curIdx + 1) % imgCount );
+        }
+        function playPre (){
+            play( (imgCount + curIdx - 1) % imgCount );
+        }
+        function setBullet (){
+            $bullet.find('li')
+                       .removeClass('active')
+                       .eq(curIdx).addClass('active');
+        }
+        function autoPlay (){
+            setInterval(function(){
+                playNext();
+            },2000)
+        }
+    </script>
 
 </body>
 </html>
