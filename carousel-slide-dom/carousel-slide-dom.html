@@ -32,6 +32,13 @@
             margin: 20px auto;
             overflow: hidden;
         }
+        .items {
+            position: absolute;
+            width: 1920px;
+        }
+        .items>li {
+            float: left;
+        }
         .pre,
         .next {
             position: absolute;
@@ -75,7 +82,7 @@
 </head>
 <body>
     <div class="carousel">
-        <ul class="items">
+        <ul class="items clear">
             <li>
                 <a href="javascript:void(0)">
                     <img src="imgs/2.jpg" alt="">
@@ -113,7 +120,80 @@
         var $pre = $(".pre"),
                 $next = $(".next"),
                 $bullet = $(".bullet"),
-                $items = $(".items").children();
+                $items = $(".items"),
+                $lis = $items.children(),
+                imgWidth = $lis.width(),
+                imgCount = $lis.length;
+
+        $items.css({
+            left: 0,
+            width: imgCount * imgWidth
+        })
+
+        var curIdx = 0,
+                isAnimate = false;
+
+        $pre.on('click',function(){
+            playPre ();
+        })
+
+        $next.on('click',function(){
+            playNext();
+        })
+
+        $bullet.find('li').on('click',function(){
+            var idx = $(this).index();
+            if( curIdx < idx ){
+                playNext( idx - curIdx );
+            }else if ( curIdx > idx ){
+                playPre( curIdx - idx );
+            }
+        })
+
+        autoPlay();
+
+        function playPre(num){
+            if( !isAnimate ){
+                isAnimate = true;
+            }
+            var num = num || 1;
+            for( var i=0;i<num;i++){
+                $items.prepend( $items.children().last() );
+            }
+            $items.css({ left: 0 -  num * imgWidth});
+            $items.animate({ left: 0 },function(){
+                curIdx = ( curIdx -num +imgCount ) % imgCount;
+                isAnimate = false;
+                setBullet();
+            })
+        }
+
+        function playNext(num){
+            if( !isAnimate ){
+                isAnimate = true;
+            }
+            var num = num || 1;
+            $items.animate({ left: '-=' + num * imgWidth },function(){
+                for( var i=0;i<num;i++ ){
+                    $items.append( $items.children().first() );
+                }
+                $items.css({ left:0 });
+                curIdx = ( curIdx + num + imgCount ) % imgCount;
+                isAnimate = false;
+                setBullet();
+            })
+        }
+
+        function setBullet(){
+            $(".bullet").find("li").removeClass("active")
+                                             .eq(curIdx).addClass("active");
+        }
+
+        function autoPlay (){
+            setInterval(function(){
+                playNext();
+            },2000)
+        }
     </script>
 </body>
 </html>
