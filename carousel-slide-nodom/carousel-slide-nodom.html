@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>carousel-slide-dom</title>
+    <title>carousel-slide-nodom</title>
     <script src="jquery-3.0.0.min.js"></script>
     <style>
         /* reset */
@@ -118,81 +118,7 @@
 
     <script>
         $(function(){
-            var $pre = $(".pre"),
-                $next = $(".next"),
-                $bullet = $(".bullet"),
-                $items = $(".items"),
-                $lis = $items.children(),
-                imgWidth = $lis.width(),
-                imgCount = $lis.length;
 
-            $items.css({
-                left: 0,
-                width: imgCount * imgWidth
-            })
-
-            var curIdx = 0,
-                isAnimate = false;
-
-            $pre.on('click',function(){
-                playPre ();
-            })
-
-            $next.on('click',function(){
-                playNext();
-            })
-
-            $bullet.find('li').on('click',function(){
-                var idx = $(this).index();
-                if( curIdx < idx ){
-                    playNext( idx - curIdx );
-                }else if ( curIdx > idx ){
-                    playPre( curIdx - idx );
-                }
-            })
-
-            autoPlay();
-
-            function playPre(num){
-                if( isAnimate ) return;
-                isAnimate = true;
-                var num = num || 1;
-                for( var i=0;i<num;i++){
-                    $items.prepend( $items.children().last() );
-                }
-                $items.css({ left: 0 -  num * imgWidth});
-                $items.animate({ left: 0 },function(){
-                    curIdx = ( curIdx -num +imgCount ) % imgCount;
-                    isAnimate = false;
-                    setBullet();
-                })
-            }
-
-            function playNext(num){
-                if( isAnimate ) return;
-                isAnimate = true;
-                var num = num || 1;
-                $items.animate({ left: '-=' + num * imgWidth },function(){
-                    for( var i=0;i<num;i++ ){
-                        $items.append( $items.children().first() );
-                    }
-                    $items.css({ left:0 });
-                    curIdx = ( curIdx + num + imgCount ) % imgCount;
-                    isAnimate = false;
-                    setBullet();
-                })
-            }
-
-            function setBullet(){
-                $(".bullet").find("li").removeClass("active")
-                    .eq(curIdx).addClass("active");
-            }
-
-            function autoPlay (){
-                setInterval(function(){
-                    playNext();
-                },3000)
-            }
         })
 
     </script>
