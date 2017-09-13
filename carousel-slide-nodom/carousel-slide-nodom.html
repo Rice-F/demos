@@ -34,7 +34,6 @@
         }
         .items {
             position: absolute;
-            width: 1920px;
         }
         .items>li {
             float: left;
@@ -118,7 +117,83 @@
 
     <script>
         $(function(){
+            var $pre = $(".pre"),
+                    $next = $(".next"),
+                    $bullet = $(".bullet"),
+                    $items = $(".items"),
+                    $lis = $items.children(),
+                    imgWidth = $lis.width(),
+                    imgCount = $lis.length;
 
+            $lis.last().clone().prependTo($items);
+            $lis.first().clone().appendTo($items);
+            imgRealCount = $items.children().length;
+
+            $items.css({
+                left: 0 - imgWidth,
+                width: imgWidth * imgRealCount
+            })
+
+            var curIdx = 0,
+                   isAnimate = false;
+
+            $pre.on('click',function(){
+                playPre();
+            })
+
+            $next.on('click',function(){
+                playPre();
+            })
+
+            $bullet.find('li').on('click',function(){
+                var idx = $(this).index();
+                if( curIdx < idx ){
+                    playNext( idx-curIdx );
+                }else if ( curIdx > idx ){
+                    playPre( curIdx - idx );
+                }
+            })
+
+            autoPlay();
+
+            function playPre(num){
+                if( isAnimate ) return;
+                isAnimate = true;
+                var num = num || 1;
+                $items.animate({ left: '+=' +  num * imgWidth },function(){
+                    curIdx = ( curIdx -num +imgCount ) % imgCount;
+                    if( curIdx = imgCount - 1 ){
+                        $items.css({ left: 0 - imgCount * imgWidth });
+                    }
+                    isAnimate = false;
+                    setBullet();
+                })
+            }
+
+            function playNext(num){
+                if( isAnimate ) return;
+                isAnimate = true;
+                var num = num || 1;
+                $items.animate({ left: '-=' + num * imgWidth },function(){
+                    curIdx = ( curIdx + num ) % imgCount;
+                    if( curIdx == 0 ) {
+                        $items.css({ left: 0 - imgWidth });
+                    }
+                    isAnimate = false;
+                    setBullet();
+                })
+            }
+
+            function setBullet(){
+                $bullet.find('li').removeClass('active')
+                                        .eq(curIdx).addClass('active');
+            }
+
+            function autoPlay(){
+                setInterval(function(){
+                    playNext();
+                },3000)
+            }
         })
 
     </script>

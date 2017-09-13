@@ -34,7 +34,6 @@
         }
         .items {
             position: absolute;
-            width: 1920px;
         }
         .items>li {
             float: left;
@@ -119,12 +118,12 @@
     <script>
         $(function(){
             var $pre = $(".pre"),
-                $next = $(".next"),
-                $bullet = $(".bullet"),
-                $items = $(".items"),
-                $lis = $items.children(),
-                imgWidth = $lis.width(),
-                imgCount = $lis.length;
+                    $next = $(".next"),
+                    $bullet = $(".bullet"),
+                    $items = $(".items"),
+                    $lis = $items.children(),
+                    imgWidth = $lis.width(),
+                    imgCount = $lis.length;
 
             $items.css({
                 left: 0,
@@ -132,7 +131,7 @@
             })
 
             var curIdx = 0,
-                isAnimate = false;
+                    isAnimate = false;
 
             $pre.on('click',function(){
                 playPre ();
@@ -185,7 +184,7 @@
 
             function setBullet(){
                 $(".bullet").find("li").removeClass("active")
-                    .eq(curIdx).addClass("active");
+                                                .eq(curIdx).addClass("active");
             }
 
             function autoPlay (){
