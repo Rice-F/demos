@@ -142,7 +142,7 @@
             })
 
             $next.on('click',function(){
-                playPre();
+                playNext();
             })
 
             $bullet.find('li').on('click',function(){
@@ -162,7 +162,7 @@
                 var num = num || 1;
                 $items.animate({ left: '+=' +  num * imgWidth },function(){
                     curIdx = ( curIdx -num +imgCount ) % imgCount;
-                    if( curIdx = imgCount - 1 ){
+                    if( curIdx == imgCount - 1 ){
                         $items.css({ left: 0 - imgCount * imgWidth });
                     }
                     isAnimate = false;

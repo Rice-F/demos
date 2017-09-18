@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>carousel-fullscreen</title>
+    <script src="jquery-3.0.0.min.js"></script>
     <style>
         /* reset */
         * {
@@ -53,7 +54,6 @@
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
-            background: url("imgs/1.jpg");
         }
         ul.items li .describe {
             position: relative;
@@ -136,6 +136,91 @@
             <li></li>
         </ul>
     </div>
+
+    <script>
+        var $items = $('.items'),
+               $lis = $items.children(),
+                imgWidth = $lis.width(),
+                imgCount = $lis.length,
+                $bullet = $('.bullet');
+
+        $lis.last().clone().prependTo($items);
+        $lis.first().clone().appendTo($items);
+        imgRealCount = $items.children().length;
+
+        $items.css({
+            width: imgWidth * imgRealCount,
+            left: 0 - imgWidth
+        });
+        $items.find('li').css({ width: imgWidth });
+        $lis.find('.cover').css({ width: imgWidth });
+
+        var curIdx = 0,
+               isAnimate = false;
+
+        setBg(1);
+        autoPlay();
+
+        function setBg(idx){
+            var idx = idx || 0,
+                   $li = $items.children().eq(idx),
+                    $cover = $li.find('.cover'),
+                    imgUrl = $cover.attr('data-bg-img');
+            if( $li.data('isBgSet') ) return;
+            $cover.css('background-image','url(' + imgUrl + ')');
+            $li.data('isBgSet',true);
+        }
+
+        function playPre(num){
+            if( isAnimate ) return;
+            isAnimate = true;
+            var num = num || 1;
+            setBg( curIdx );
+            $items.animate({ left: '+=' + imgWidth * num },function(){
+                curIdx = ( curIdx -num +imgCount ) % imgCount;
+                if( curIdx == imgCount - 1 ){
+                    $items.css({ lef: 0 - imgCount * imgWidth });
+                }
+                isAnimate = false;
+                setBullet();
+            })
+        }
+
+        function playNext(num){
+            if( isAnimate ) return;
+            isAnimate = true;
+            var num = num || 1;
+            setBg( curIdx + 2 );
+            $items.animate({ left: '-=' +  imgWidth * num },function(){
+                curIdx = ( curIdx + num ) % imgCount;
+                if( curIdx == 0 ){
+                    $items.css({ left: 0 - imgWidth });
+                }
+                isAnimate = false;
+                setBullet();
+            })
+        }
+
+        function setBullet(){
+            $bullet.find('li').removeClass('active')
+                        .eq(curIdx).addClass('active');
+        }
+
+        function autoPlay(){
+            setInterval(function(){
+                playNext();
+            },3000);
+        }
+
+        $bullet.find('li').on('click',function(){
+            var idx = $(this).index();
+            if( curIdx < idx ){
+                playNext( idx - curIdx );
+            }else if ( curIdx > idx ){
+                playPre( curIdx - idx );
+            }
+        })
+    </script>
 
 </body>
 </html>
