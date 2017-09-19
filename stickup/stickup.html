@@ -1,0 +1,56 @@
+<!DOCTYPE>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>stickup</title>
+    <script src="jquery-3.0.0.min.js"></script>
+    <style>
+        /* reset */
+        *{
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* public */
+        .clear:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        #header {
+            height: 80px;
+            line-height: 80px;
+            background: #FC9D9A;
+        }
+        #sub {
+            margin: 20px 0;
+        }
+        #sub .nav {
+            height: 40px;
+            line-height: 40px;
+            background: #B9E3D9;
+        }
+        #sub .content {
+            min-height: 960px;
+            background: #FFEBCD;
+        }
+    </style>
+</head>
+<body>
+    <div id="stickUp">
+        <div id="header">header</div>
+        <div id="sub">
+            <div class="nav">nav</div>
+            <div class="content">
+                <div class="aside">aside</div>
+                <div class="main">main</div>
+            </div>
+        </div>
+        <div id="footer">footer</div>
+    </div>
+</body>
+</html>
