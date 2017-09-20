@@ -35,8 +35,25 @@
             background: #B9E3D9;
         }
         #sub .content {
-            min-height: 960px;
+            padding: 10px;
+            min-height: 900px;
             background: #FFEBCD;
+        }
+        #sub .content .aside {
+            float: left;
+            width: 100px;
+            min-height: 400px;
+            background: #FC9D9A;
+        }
+        #sub .content .main {
+            overflow: hidden;
+            min-height: 900px;
+            background: #F9CDAD;
+        }
+        #footer {
+            height: 50px;
+            line-height: 50px;
+            background: #FC9D9A;
         }
     </style>
 </head>
@@ -45,12 +62,67 @@
         <div id="header">header</div>
         <div id="sub">
             <div class="nav">nav</div>
-            <div class="content">
+            <div class="content clear">
                 <div class="aside">aside</div>
                 <div class="main">main</div>
             </div>
         </div>
         <div id="footer">footer</div>
     </div>
+
+    <script>
+        $.fn.stick = function(){
+            var $this = this,
+                   $height = $this.height(),
+                   $width = $this.width(),
+                   offsetTop = $this.offset().top,
+                   offsetLeft = $this.offset().left;
+
+            var $clone = $this.clone()
+                                            .css({
+                                                opacity: 0,
+                                                display: none
+                                            })
+                                            .insetBefore($this);
+
+            $(window).on('scroll',function(){
+                var scrollTop = $(this).scrollTop();
+                if( scrollTop >=  offsetTop ){
+                    if( !isFixed() ){
+                        setFixed();
+                    }
+                }else {
+                    if( isFixed() ){
+                        unsetFixed();
+                    }
+                }
+            })
+
+            function isFixed(){
+                return $this.data('data-fixed')
+            }
+
+            function setFixed(){
+                $this.data('data-fixed',true)
+                        .css({
+                            position: fixed,
+                            top: 0,
+                            left: offsetLeft,
+                            width: $width,
+                            margin: 0,
+                            'z-index': 9
+                        })
+                $clone.show();
+            }
+
+            function unsetFixed(){
+                $this.data('data-fixed',false)
+                        .removeAttr('style');
+                $clone.hide();
+            }
+        }
+
+        $('.nav').stick();
+    </script>
 </body>
 </html>
