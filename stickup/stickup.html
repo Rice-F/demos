@@ -79,11 +79,8 @@
                    offsetLeft = $this.offset().left;
 
             var $clone = $this.clone()
-                                            .css({
-                                                opacity: 0,
-                                                display: none
-                                            })
-                                            .insetBefore($this);
+                                            .css({ opacity: 0, display: 'none' })
+                                            .insertBefore($this);
 
             $(window).on('scroll',function(){
                 var scrollTop = $(this).scrollTop();
@@ -105,7 +102,7 @@
             function setFixed(){
                 $this.data('data-fixed',true)
                         .css({
-                            position: fixed,
+                            position: 'fixed',
                             top: 0,
                             left: offsetLeft,
                             width: $width,
