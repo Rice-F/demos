@@ -73,7 +73,6 @@
     <script>
         $.fn.stick = function(){
             var $this = this,
-                   $height = $this.height(),
                    $width = $this.width(),
                    offsetTop = $this.offset().top,
                    offsetLeft = $this.offset().left;
@@ -84,7 +83,7 @@
 
             $(window).on('scroll',function(){
                 var scrollTop = $(this).scrollTop();
-                if( scrollTop >=  offsetTop ){
+                if( scrollTop >= offsetTop ){
                     if( !isFixed() ){
                         setFixed();
                     }

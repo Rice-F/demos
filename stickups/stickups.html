@@ -1,0 +1,162 @@
+<!DOCTYPE>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>stickups</title>
+    <script src="jquery-3.0.0.min.js"></script>
+    <style>
+        /* reset */
+        *{
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* public */
+        .clear:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        body {
+            margin: 10px 0;
+        }
+        #stickUps .wrap {
+            width: 900px;
+            margin: 0 auto;
+        }
+        #stickUps #header {
+            height: 60px;
+            line-height: 60px;
+            background: #F9CDAD;
+        }
+        #stickUps #subs .sub{
+            margin: 20px 0;
+        }
+        #stickUps #subs .sub .nav {
+            height: 30px;
+            line-height: 30px;
+            margin-bottom: 10px;
+            background: #FFEBCD;
+        }
+        #stickUps #subs .sub .cont .aside {
+            float: left;
+            width: 200px;
+            height: 400px;
+            background: #B0E0E6;
+        }
+        #stickUps #subs .sub .cont .main {
+            float: right;
+            width: 680px;
+            height: 400px;
+            margin-left: 20px;
+            background: #B9E3D9;
+        }
+        #stickUps #footer {
+            height: 40px;
+            line-height: 40px;
+            margin-top: 20px;
+            background: #F9CDAD;
+        }
+    </style>
+</head>
+<body>
+    <div id="stickUps">
+        <div class="wrap">
+            <div id="header">header</div>
+            <div id="subs">
+                <div class="sub">
+                    <div class="nav">nav1</div>
+                    <div class="cont clear">
+                        <div class="aside">aside1</div>
+                        <div class="main">main1</div>
+                    </div>
+                </div>
+                <div class="sub">
+                    <div class="nav">nav2</div>
+                    <div class="cont clear">
+                        <div class="aside">aside2</div>
+                        <div class="main">main2</div>
+                    </div>
+                </div>
+                <div class="sub">
+                    <div class="nav">nav3</div>
+                    <div class="cont clear">
+                        <div class="aside">aside3</div>
+                        <div class="main">main3</div>
+                    </div>
+                </div>
+                <div class="sub">
+                    <div class="nav">nav4</div>
+                    <div class="cont clear">
+                        <div class="aside">aside4</div>
+                        <div class="main">main4</div>
+                    </div>
+                </div>
+            </div>
+            <div id="footer">footer</div>
+        </div>
+    </div>
+
+    <script>
+
+        $(function(){
+            $.fn.stick = function(){
+
+                this.each(function(){
+                    var $this = $(this),
+                           $width = $this.width(),
+                           $offsetTop = $this.offset().top,
+                           $offsetLeft = $this.offset().left;
+
+                    var $clone = $this.clone()
+                                                    .css({ opacity: 0})
+                                                    .insertBefore($this)
+                                                    .hide();
+
+                    $(window).on('scroll',function(){
+                        var scrollTop = $(this).scrollTop();
+                        if( scrollTop >= $offsetTop ){
+                           if( !isFixed() ){
+                               setFixed();
+                           }
+                        }else {
+                            if( isFixed() ){
+                                unsetFixed();
+                            }
+                        }
+                    })
+
+                    function isFixed(){
+                        return $this.data('fixed');
+                    }
+
+                    function setFixed(){
+                        $this.data('fixed',true)
+                                 .css({
+                                     position: 'fixed',
+                                     top: 0,
+                                     left: $offsetLeft,
+                                     width: $width,
+                                     margin: 0,
+                                     'z-index': 999,
+                                 })
+                        $clone.show();
+                    }
+
+                    function unsetFixed(){
+                        $this.data('fixed',false)
+                                 .removeAttr('style');
+                        $clone.hide();
+                    }
+                })
+            };
+            $('.nav').stick();
+        })
+
+
+    </script>
+
+</body>
+</html>
