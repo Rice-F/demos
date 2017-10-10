@@ -1,0 +1,53 @@
+<!DOCTYPE>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>gotop</title>
+    <script src="jquery-3.0.0.min.js"></script>
+    <style>
+        p {
+            width: 100px;
+            padding: 10px 0;
+            border-radius: 3px;
+            text-align: center;
+            background: #F9CDAD;
+        }
+        button {
+            display: none;
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: #B9E3D9;
+            padding: 10px;
+            border: 1px solid #B9E3D9;
+            border-radius: 3px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <p>content1</p><p>content1</p><p>content1</p><p>content1</p>
+    <p>content1</p><p>content1</p><p>content1</p><p>content1</p>
+    <p>content1</p><p>content1</p><p>content1</p><p>content1</p>
+    <p>content1</p><p>content1</p><p>content1</p><p>content1</p>
+    <p>content1</p><p>content1</p><p>content1</p><p>content1</p>
+    <p>content1</p><p>content1</p><p>content1</p><p>content1</p>
+    <p>content1</p><p>content1</p><p>content1</p><p>content1</p>
+    <button>go Top</button>
+
+    <script>
+        var $btn = $('button');
+        $(window).on('scroll',function(){
+            var scrollTop = $(this).scrollTop();
+            if( scrollTop > 100 ){
+                $btn.show();
+            }else {
+                $btn.hide();
+            }
+        })
+        $btn.on('click',function(){
+            $(window).scrollTop(0);
+        })
+    </script>
+</body>
+</html>
