@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>lazyLoad</title>
+    <script src="jquery-3.0.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style: none;
+        }
+        .clear:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .lazyImg {
+            width: 876px;
+            margin: 0 auto;
+        }
+        .lazyImg>li {
+            float: left;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+        }
+        .lazyImg>li>a>img {
+            width: 250px;
+            height: 300px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <ul class="lazyImg clear">
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/1.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/2.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/3.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/4.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/5.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/6.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/7.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/8.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/9.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/10.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/11.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/12.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/13.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/14.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/15.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/16.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/17.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <img src="imgs/load.jpg" alt="" data-src="imgs/18.jpg">
+            </a>
+        </li>
+    </ul>
+    <script>
+        var clock;
+        $(window).on('scroll',function(){
+            if(clock){
+                clearTimeout(clock);
+            }
+            clock = setTimeout(function(){
+                checkShow();
+            },300)
+        })
+        checkShow();
+        function checkShow(){
+            $('.lazyImg>li>a>img').each(function(){
+                var $this = $(this);
+                if( $this.data('loaded') ) return;
+                if( isShow($this) ){
+                    showImg($this);
+                }
+            })
+        }
+        function isShow($el){
+            var winH = $(window).height(),
+                   scrollTop = $(window).scrollTop(),
+                   offsetTop = $el.offset().top;
+            if( winH + scrollTop > offsetTop ){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function showImg($el){
+            $el.attr('src',$el.data('src'));
+            $el.data('loaded',true);
+        }
+    </script>
+</body>
+</html>
