@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>lazyload loadmore ajax</title>
+    <script src="jquery-3.0.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style: none;
+        }
+        .clear:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .contents {
+            margin: 10px 0 0 10px;
+        }
+        .contents>li {
+            padding: 10px;
+            border:1px solid #F9CDAD;
+            border-radius: 3px;
+        }
+        .contents>li.hover {
+            background: #F9CDAD;
+        }
+        .loadMore {
+            display: block;
+            width: 100px;
+            padding: 10px 0;
+            margin: 10px auto 0;
+            background: #fff;
+            border:1px solid #F9CDAD;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="contents">
+        <li>content 1</li>
+    </ul>
+    <button class="loadMore">loadMore...</button>
+    <script>
+        var clock,
+                $loadMore = $('.loadMore');
+
+        $(window).on('scroll',function(){
+            if(clock){
+                clearTimeout(clock);
+            }
+            clock = setTimeout(function(){
+                isShow($loadMore);
+            },100)
+        })
+
+        function load(){
+            $ajax({
+
+            })
+        }
+
+        function isShow($node){
+            var winTop = $(window).height,
+                   scrollTop = $(window).scrollTop(),
+                   offsetTop = $node.offset().top;
+            if( scrollTop + winTop > offsetTop ){
+                return true;
+            }else {
+                return false;
+            }
+        }
+
+        $('.contents').find('li').on('mouseover',function(){
+            $(this).addClass('hover');
+        }).on('mouseleave',function(){
+            $(this).removeClass('hover');
+        })
+    </script>
+</body>
+</html>
