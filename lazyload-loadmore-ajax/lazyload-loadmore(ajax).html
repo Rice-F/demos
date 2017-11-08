@@ -47,20 +47,35 @@
     <button class="loadMore">loadMore...</button>
     <script>
         var clock,
-                $loadMore = $('.loadMore');
+                $loadMore = $('.loadMore'),
+                start = 2;
+        load();
 
         $(window).on('scroll',function(){
             if(clock){
                 clearTimeout(clock);
             }
             clock = setTimeout(function(){
-                isShow($loadMore);
+                if( !isShow($loadMore) ) return;
+                load();
             },100)
         })
 
         function load(){
-            $ajax({
-
+            $.ajax({
+                url: 'loadmore.php',
+                dataType: 'json',
+                type: 'get',
+                data: {
+                    start: start,
+                    num: 6
+                },
+                success: function(ret){
+                    $('.contents').append(ret.msg);
+                },
+                error: function () {
+                    console.log('error');
+                }
             })
         }
 
