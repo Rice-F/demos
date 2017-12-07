@@ -52,28 +52,38 @@
     <div class="item h2">18</div>
 
     <script>
-        var nodeWidth = $('.item').outerWidth(true),
-               colNum = Math.floor( $(window).width() / nodeWidth );
-        var colSumHeight = [];
-        for(var i=0;i<colNum;i++){
-            colSumHeight.push(0);
-        }
-        $('.item').each(function(){
-            var $this = $(this);
-            var idx = 0,
-                    minSumHeight = colSumHeight[0];
-            for(var i=0;i<colSumHeight.length;i++){
-                if( colSumHeight[i] < minSumHeight ){
-                    idx = i;
-                    minSumHeight = colSumHeight[i];
-                }
+        function waterfall(){
+            var nodeWidth = $('.item').outerWidth(true),
+                colNum = Math.floor( $(window).width() / nodeWidth );
+            var colSumHeight = [];
+            for(var i=0;i<colNum;i++){
+                colSumHeight.push(0);
             }
-            $this.css({
-                top: minSumHeight,
-                left: idx * nodeWidth
+            $('.item').each(function(){
+                var $this = $(this);
+                var idx = 0,
+                    minSumHeight = colSumHeight[0];
+                for(var i=0;i<colSumHeight.length;i++){
+                    if( colSumHeight[i] < minSumHeight ){
+                        idx = i;
+                        minSumHeight = colSumHeight[i];
+                    }
+                }
+                $this.css({
+                    top: minSumHeight,
+                    left: idx * nodeWidth
+                })
+                colSumHeight[idx] += $this.outerHeight(true);
             })
-            colSumHeight[idx] += $this.outerHeight(true);
+        }
+
+        waterfall();
+
+        $(window).on('resize',function(){
+            waterfall();
         })
+
+
     </script>
 </body>
 </html>
