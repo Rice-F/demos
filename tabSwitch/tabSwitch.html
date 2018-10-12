@@ -442,9 +442,11 @@
                 evt.preventDefault();
                 var $idx = $(this).index(),
                         $this = $(this);
+                // 当前被点击元素的兄弟元素取消样式，自己加上样式
                 $this.siblings('li').removeClass('active');
                 $this.addClass('active')
 
+                // 只显示与当前li相同下标的ul列表
                 $this.parents('.tabSwitch').find('div.items').hide();
                 $this.parents('.tabSwitch').find('div.items').eq($idx).show();
             })

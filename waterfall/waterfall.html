@@ -53,16 +53,21 @@
 
     <script>
         function waterfall(){
+            // 计算出一行最多能显示几个item
             var nodeWidth = $('.item').outerWidth(true),
                 colNum = Math.floor( $(window).width() / nodeWidth );
+            // 一行能显示几个item就在数组中保存几项
             var colSumHeight = [];
             for(var i=0;i<colNum;i++){
                 colSumHeight.push(0);
             }
+            // 获取当前高度最小值
             $('.item').each(function(){
                 var $this = $(this);
+                // 先假设第0项是最小的，然后依次和第0项比较
                 var idx = 0,
                     minSumHeight = colSumHeight[0];
+                // 如果有比第0项更小的，就将高度值赋值给minSumHeight，下标赋值给idx
                 for(var i=0;i<colSumHeight.length;i++){
                     if( colSumHeight[i] < minSumHeight ){
                         idx = i;
@@ -73,6 +78,7 @@
                     top: minSumHeight,
                     left: idx * nodeWidth
                 })
+                // 累加数组中每个元素的值，这样可以获取当前每一列的高度
                 colSumHeight[idx] += $this.outerHeight(true);
             })
         }
@@ -82,8 +88,6 @@
         $(window).on('resize',function(){
             waterfall();
         })
-
-
     </script>
 </body>
 </html>

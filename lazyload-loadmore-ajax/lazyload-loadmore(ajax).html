@@ -23,6 +23,7 @@
         }
         .contents>li {
             padding: 10px;
+            margin-bottom: 10px;
             border:1px solid #F9CDAD;
             border-radius: 3px;
         }
@@ -49,7 +50,7 @@
         var clock,
                 $loadMore = $('.loadMore'),
                 start = 2;
-        load();
+        load(20);
 
         $(window).on('scroll',function(){
             if(clock){
@@ -57,18 +58,18 @@
             }
             clock = setTimeout(function(){
                 if( !isShow($loadMore) ) return;
-                load();
+                load(6);
             },100)
         })
 
-        function load(){
+        function load(n){
             $.ajax({
                 url: 'loadmore.php',
                 dataType: 'json',
                 type: 'get',
                 data: {
                     start: start,
-                    num: 6
+                    num: n
                 },
                 success: function(ret){
                     $('.contents').append(ret.msg);
@@ -80,7 +81,7 @@
         }
 
         function isShow($node){
-            var winTop = $(window).height,
+            var winTop = $(window).height(),
                    scrollTop = $(window).scrollTop(),
                    offsetTop = $node.offset().top;
             if( scrollTop + winTop > offsetTop ){

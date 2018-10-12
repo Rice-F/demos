@@ -130,6 +130,7 @@
         </li>
     </ul>
     <script>
+        // 防止重复加载
         var clock;
         $(window).on('scroll',function(){
             if(clock){
@@ -150,6 +151,7 @@
             })
         }
         function isShow($el){
+            // 获取可是窗口高度、滚动条滚动距离、元素距离文档顶部距离
             var winH = $(window).height(),
                    scrollTop = $(window).scrollTop(),
                    offsetTop = $el.offset().top;
@@ -161,6 +163,7 @@
         }
         function showImg($el){
             $el.attr('src',$el.data('src'));
+            // 添加自定义属性loaded
             $el.data('loaded',true);
         }
     </script>

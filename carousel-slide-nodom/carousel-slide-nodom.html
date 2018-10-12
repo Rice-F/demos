@@ -4,83 +4,84 @@
     <meta charset="UTF-8">
     <title>carousel-slide-nodom</title>
     <script src="jquery-3.0.0.min.js"></script>
-    <style>
-        /* reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        li {
-            list-style: none;
-        }
-        a {
-            text-decoration: none;
-        }
+<style>
+    /* reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    li {
+        list-style: none;
+    }
+    a {
+        text-decoration: none;
+    }
 
-        /* public */
-        .clear:after {
-            content: "";
-            display: block;
-            clear: both;
-        }
+    /* public */
+    .clear:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
 
-        .carousel {
-            position: relative;
-            width: 480px;
-            height: 360px;
-            margin: 20px auto;
-            overflow: hidden;
-        }
-        .items {
-            position: absolute;
-        }
-        .items>li {
-            float: left;
-        }
-        .pre,
-        .next {
-            position: absolute;
-            top: 50%;
-            margin-top: -25px;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            text-align: center;
-            color: #fff;
-            font-size: 30px;
-            opacity: .8;
-        }
-        .pre:hover,
-        .next:hover {
-            font-size: 60px;
-        }
-        .pre {
-            left: 10px;
-        }
-        .next {
-            right: 10px;
-        }
-        .bullet {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translate(-50%);
-        }
-        .bullet li {
-            display: inline-block;
-            width: 16px;
-            height: 4px;
-            background: #fff;
-            cursor: pointer;
-        }
-        .bullet li.active {
-            background: #666;
-        }
-    </style>
+    .carousel {
+        position: relative;
+        width: 480px;
+        height: 360px;
+        margin: 20px auto;
+        overflow: hidden;
+    }
+    .items {
+        position: absolute;
+    }
+    .items>li {
+        float: left;
+    }
+    .pre,
+    .next {
+        position: absolute;
+        top: 50%;
+        margin-top: -25px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        color: #fff;
+        font-size: 30px;
+        opacity: .8;
+    }
+    .pre:hover,
+    .next:hover {
+        font-size: 60px;
+    }
+    .pre {
+        left: 10px;
+    }
+    .next {
+        right: 10px;
+    }
+    .bullet {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .bullet li {
+        display: inline-block;
+        width: 16px;
+        height: 4px;
+        background: #fff;
+        cursor: pointer;
+    }
+    .bullet li.active {
+        background: #666;
+    }
+</style>
 </head>
 <body>
     <div class="carousel">
+        <!-- 图片列表 -->
         <ul class="items clear">
             <li>
                 <a href="javascript:void(0)">
@@ -105,8 +106,10 @@
 
 
         </ul>
+        <!-- 向前向后按钮 -->
         <a href="javascript:void(0)" class="pre"><</a>
         <a href="javascript:void(0)" class="next">></a>
+        <!-- 分页器 -->
         <ul class="bullet">
             <li class="active"></li>
             <li></li>
@@ -116,85 +119,102 @@
     </div>
 
     <script>
-        $(function(){
-            var $pre = $(".pre"),
-                    $next = $(".next"),
-                    $bullet = $(".bullet"),
-                    $items = $(".items"),
-                    $lis = $items.children(),
-                    imgWidth = $lis.width(),
-                    imgCount = $lis.length;
+    $(function(){
+        var $pre = $(".pre"),
+             $next = $(".next"),
+             $bullet = $(".bullet"),
+             $items = $(".items"),
+             $lis = $items.children(),
+             imgWidth = $lis.width(),
+             imgCount = $lis.length;       //初始图片的数量
 
-            $lis.last().clone().prependTo($items);
-            $lis.first().clone().appendTo($items);
-            imgRealCount = $items.children().length;
+        // 分别在列表首尾clone列表最后一项和第一项
+        $lis.last().clone().prependTo($items);
+        $lis.first().clone().appendTo($items);
+        // 再获取现在的图片数量，应该是imgCount+2
+        imgRealCount = $items.children().length;
 
-            $items.css({
-                left: 0 - imgWidth,
-                width: imgWidth * imgRealCount
-            })
+        // 此时列表第一项其实是原有列表最后一项，因此要将ul左移一张图片的距离，保证显示原有的第一项
+        $items.css({
+            left: 0 - imgWidth,
+            width: imgWidth * imgRealCount
+        })
 
-            var curIdx = 0,
-                   isAnimate = false;
+        // 设置轮播初始图片下标和防止重复点击重复执行滚动
+        var curIdx = 0,
+            isAnimate = false;
 
-            $pre.on('click',function(){
-                playPre();
-            })
+        // 绑定点击事件
+        $pre.on('click',function(){
+            playPre();
+        })
 
-            $next.on('click',function(){
-                playNext();
-            })
+        $next.on('click',function(){
+            playNext();
+        })
 
-            $bullet.find('li').on('click',function(){
-                var idx = $(this).index();
-                if( curIdx < idx ){
-                    playNext( idx-curIdx );
-                }else if ( curIdx > idx ){
-                    playPre( curIdx - idx );
-                }
-            })
-
-            autoPlay();
-
-            function playPre(num){
-                if( isAnimate ) return;
-                isAnimate = true;
-                var num = num || 1;
-                $items.animate({ left: '+=' +  num * imgWidth },function(){
-                    curIdx = ( curIdx -num +imgCount ) % imgCount;
-                    if( curIdx == imgCount - 1 ){
-                        $items.css({ left: 0 - imgCount * imgWidth });
-                    }
-                    isAnimate = false;
-                    setBullet();
-                })
-            }
-
-            function playNext(num){
-                if( isAnimate ) return;
-                isAnimate = true;
-                var num = num || 1;
-                $items.animate({ left: '-=' + num * imgWidth },function(){
-                    curIdx = ( curIdx + num ) % imgCount;
-                    if( curIdx == 0 ) {
-                        $items.css({ left: 0 - imgWidth });
-                    }
-                    isAnimate = false;
-                    setBullet();
-                })
-            }
-
-            function setBullet(){
-                $bullet.find('li').removeClass('active')
-                                        .eq(curIdx).addClass('active');
-            }
-
-            function autoPlay(){
-                setInterval(function(){
-                    playNext();
-                },3000)
+        // 绑定分页器点击事件
+        $bullet.find('li').on('click',function(){
+            var idx = $(this).index();
+            // 比较被点击的分页器下标和当前展示图片的下标
+            if( curIdx < idx ){
+                playNext( idx-curIdx );
+            }else if ( curIdx > idx ){
+                playPre( curIdx - idx );
             }
         })
+
+        autoPlay();
+
+        function playPre(num){
+            if( isAnimate ) return;
+            isAnimate = true;
+            // 默认滚动一张图片
+            var num = num || 1;
+            // pre一直执行ul向右移的动画
+            $items.animate({ left: '+=' +  num * imgWidth },function(){
+                curIdx = ( curIdx -num +imgCount ) % imgCount;
+                // 通过计算，如果下一张展示的图片是clone4
+                // 这时将ul列表位置设置为图片4
+                if( curIdx == imgCount - 1 ){
+                    $items.css({ left: 0 - imgCount * imgWidth });
+                }
+                isAnimate = false;
+                setBullet();
+            })
+        }
+
+        function playNext(num){
+            if( isAnimate ) return;
+            isAnimate = true;
+            // 默认滚动一张图片
+            var num = num || 1;
+            // next一直执行ul向左移的动画
+            $items.animate({ left: '-=' + num * imgWidth },function(){
+                // 通过当前展示图片的下标和滚动数量计算出需要滚动到的图片的下标
+                // 这里的curIdx取值范围始终小于imgCount，也就是取值在0-3之间
+                curIdx = ( curIdx + num ) % imgCount;
+                // 如果curIdx == 0，就表示滚动到了图片clone1
+                // 这时再将ul列表的位置设置到图片1
+                if( curIdx == 0 ) {
+                    $items.css({ left: 0 - imgWidth });
+                }
+                isAnimate = false;
+                setBullet();
+            })
+        }
+
+        function setBullet(){
+            $bullet.find('li').removeClass('active')
+                                    .eq(curIdx).addClass('active');
+        }
+
+        function autoPlay(){
+            setInterval(function(){
+                playNext();
+            },3000)
+        }
+    })
 
     </script>
 </body>

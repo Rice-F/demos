@@ -50,24 +50,24 @@
         <script>
             var more = document.getElementsByClassName("more")[0],
                 contents = document.getElementsByClassName("contents")[0];
-            more.addEventListener('click',function(){
-                var start = (contents.children).length + 1;
-                ajax({
-                    url: "./loadmore.php",
-                    type: "get",
-                    data: {
-                        start:start,
-                        num: 3
-                    },
-                    success: function(ret){
-                        contents.innerHTML += ret.msg;
-                        console.log(ret);
-                    },
-                    error: function(){
-                        console.log('error');
-                    }
+                more.addEventListener('click',function(){
+                    var start = (contents.children).length + 1;
+                    ajax({
+                        url: "./loadmore.php",
+                        type: "get",
+                        data: {
+                            start:start,
+                            num: 3
+                        },
+                        success: function(ret){
+                            contents.innerHTML += ret.msg;
+                            console.log(ret);
+                        },
+                        error: function(){
+                            console.log('error');
+                        }
+                    })
                 })
-            })
         </script>
     </body>
 </html>

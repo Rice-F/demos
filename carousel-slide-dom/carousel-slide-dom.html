@@ -118,20 +118,21 @@
     <script>
         $(function(){
             var $pre = $(".pre"),
-                    $next = $(".next"),
-                    $bullet = $(".bullet"),
-                    $items = $(".items"),
-                    $lis = $items.children(),
-                    imgWidth = $lis.width(),
-                    imgCount = $lis.length;
+                $next = $(".next"),
+                $bullet = $(".bullet"),
+                $items = $(".items"),
+                $lis = $items.children(),
+                imgWidth = $lis.width(),
+                imgCount = $lis.length;
 
+            // ul的宽度要能包裹住所有浮动的图片，因此宽度是根据图片宽度和数量计算得出的
             $items.css({
                 left: 0,
                 width: imgCount * imgWidth
             })
 
             var curIdx = 0,
-                    isAnimate = false;
+                isAnimate = false;
 
             $pre.on('click',function(){
                 playPre ();
@@ -156,10 +157,13 @@
                 if( isAnimate ) return;
                 isAnimate = true;
                 var num = num || 1;
+                // 需要显示上一张图片时，要先将上一张图片放置ul列表的首位
                 for( var i=0;i<num;i++){
                     $items.prepend( $items.children().last() );
                 }
+                // 然后设置ul的位置保证当前显示的图片不变
                 $items.css({ left: 0 -  num * imgWidth});
+                // 再通过animate动态将ul滚至被显示图片的位置，也就是ul首位，所以left:0
                 $items.animate({ left: 0 },function(){
                     curIdx = ( curIdx -num +imgCount ) % imgCount;
                     isAnimate = false;
@@ -171,11 +175,15 @@
                 if( isAnimate ) return;
                 isAnimate = true;
                 var num = num || 1;
+                // 需要显示下一张图片时，先animate将ul整体向左移动一张图片的宽度
+                // 然后将被移走的图片放置ul的末尾，这里使用for循环的原因就是如果移走的是n张就需要执行n次append方法
                 $items.animate({ left: '-=' + num * imgWidth },function(){
                     for( var i=0;i<num;i++ ){
                         $items.append( $items.children().first() );
                     }
+                    // 被显示图片位置安排好后，这时候ul已经偏移num * imgWidth了，因此要归0，始终保持被显示图片的位置
                     $items.css({ left:0 });
+                    // 获取当前被显示图片的下标，并保证下标的取值范围在图片数量以内
                     curIdx = ( curIdx + num + imgCount ) % imgCount;
                     isAnimate = false;
                     setBullet();
@@ -184,7 +192,7 @@
 
             function setBullet(){
                 $(".bullet").find("li").removeClass("active")
-                                                .eq(curIdx).addClass("active");
+                    .eq(curIdx).addClass("active");
             }
 
             function autoPlay (){

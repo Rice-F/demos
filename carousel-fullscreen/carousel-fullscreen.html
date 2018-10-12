@@ -139,36 +139,36 @@
 
     <script>
         var $items = $('.items'),
-               $lis = $items.children(),
-                imgWidth = $lis.width(),
-                imgCount = $lis.length,
-                $bullet = $('.bullet');
+            $lis = $items.children(),
+            imgWidth = $lis.width(),
+            imgCount = $lis.length,                     // 当前图片数量5
+            $bullet = $('.bullet');
 
         $lis.last().clone().prependTo($items);
         $lis.first().clone().appendTo($items);
-        imgRealCount = $items.children().length;
+        imgRealCount = $items.children().length;            // clone之后的图片数量7
 
         $items.css({
-            width: imgWidth * imgRealCount,
-            left: 0 - imgWidth
+            width: imgWidth * imgRealCount,             // 让所有图片显示在同一行
+            left: 0 - imgWidth                          // 显示图片1而不是clone1，因此ul列表向左移一格图片距离
         });
-        $items.find('li').css({ width: imgWidth });
+        $items.find('li').css({ width: imgWidth });                    // 原本li宽度是100%，继承自父元素，但现在父元素ul宽度为7张图片宽度了，因此li宽度要重置
         $lis.find('.cover').css({ width: imgWidth });
 
         var curIdx = 0,
-               isAnimate = false;
+            isAnimate = false;
 
         setBg(1);
         autoPlay();
 
         function setBg(idx){
             var idx = idx || 0,
-                   $li = $items.children().eq(idx),
-                    $cover = $li.find('.cover'),
-                    imgUrl = $cover.attr('data-bg-img');
+                $li = $items.children().eq(idx),            // 获取当前显示的li
+                $cover = $li.find('.cover'),
+                imgUrl = $cover.attr('data-bg-img');          // 获取图片链接
             if( $li.data('isBgSet') ) return;
-            $cover.css('background-image','url(' + imgUrl + ')');
-            $li.data('isBgSet',true);
+            $cover.css('background-image','url(' + imgUrl + ')');      // 添加background-image属性
+            $li.data('isBgSet',true);                                  // 添加data自定义属性表示已添加背景
         }
 
         function playPre(num){

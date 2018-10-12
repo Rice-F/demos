@@ -71,15 +71,18 @@
     </div>
 
     <script>
+        // $.fn是指jquery的命名空间，加上fn上的方法及属性，会对jquery实例每一个有效
         $.fn.stick = function(){
+            // 获取实例对象的一些参数
             var $this = this,
-                   $width = $this.width(),
-                   offsetTop = $this.offset().top,
-                   offsetLeft = $this.offset().left;
+                $width = $this.width(),
+                offsetTop = $this.offset().top,
+                offsetLeft = $this.offset().left;
 
+            // clone实例对象，当实例对象固定在顶部后，则让clone对象显示继续占据实例对象原来的位置
             var $clone = $this.clone()
-                                            .css({ opacity: 0, display: 'none' })
-                                            .insertBefore($this);
+                               .css({ opacity: 0, display: 'none' })
+                               .insertBefore($this);
 
             $(window).on('scroll',function(){
                 var scrollTop = $(this).scrollTop();
